@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="90.0"
+      prefWidth="500.0" style="-fx-border-color: black;" xmlns="http://javafx.com/javafx/17.0.6"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.cpu_visual.controller.mainComsController">
+   <children>
+      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#addCommand" text="Добавить инструкцию" />
+      <Button layoutX="250.0" layoutY="14.0" mnemonicParsing="false" onAction="#reset" text="Сбросить выполнение программы" />
+      <Button layoutX="250.0" layoutY="50.0" mnemonicParsing="false" onAction="#step" text="Выполнить очередную инструкцию" />
+   </children>
+</Pane>

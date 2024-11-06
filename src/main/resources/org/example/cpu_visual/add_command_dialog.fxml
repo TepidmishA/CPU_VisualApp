@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="86.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/17.0.6" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.cpu_visual.controller.addCommandDialogController">
+    <left>
+        <VBox spacing="10.0" BorderPane.alignment="CENTER">
+            <Label text="Тип инструкции" />
+            <ComboBox fx:id="typeComboBox" prefHeight="25.0" prefWidth="96.0" />
+        </VBox>
+    </left>
+    <center>
+        <VBox spacing="10.0" BorderPane.alignment="CENTER">
+            <Label text="Левый аргумент" />
+            <TextField fx:id="leftArgumentField" />
+        </VBox>
+    </center>
+    <right>
+        <VBox spacing="10.0" BorderPane.alignment="CENTER">
+            <Label text="Правый аргумент" />
+            <TextField fx:id="rightArgumentField" />
+        </VBox>
+    </right>
+    <bottom>
+        <HBox alignment="CENTER" prefHeight="37.0" prefWidth="400.0" spacing="20.0" BorderPane.alignment="CENTER">
+            <Button fx:id="cancelButton" onAction="#onCancel" text="Отмена" />
+            <Button fx:id="addButton" onAction="#onAdd" text="Добавить" />
+        </HBox>
+    </bottom>
+</BorderPane>
