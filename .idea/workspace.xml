@@ -4,7 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="365b0e93-fef3-48e7-89cb-7e933918943b" name="Changes" comment="1.0" />
+    <list default="true" id="365b0e93-fef3-48e7-89cb-7e933918943b" name="Changes" comment="1.0">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/cpu_visual/controller/addCommandDialogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/cpu_visual/controller/addCommandDialogController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/cpu_visual/controller/comController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/cpu_visual/controller/comController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/cpu_visual/controller/program/mainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/cpu_visual/controller/program/mainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/cpu_visual/program/Program.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/cpu_visual/program/Program.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/cpu_visual/command_view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/cpu_visual/command_view.fxml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -31,7 +40,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/TepidmishA/CPU_VisualApp.git&quot;,
-    &quot;accountId&quot;: &quot;6ae128b1-b846-404d-990a-034261cf9730&quot;
+    &quot;accountId&quot;: &quot;925e6948-0fec-43fa-bf5d-e5b097d8318c&quot;
   }
 }</component>
   <component name="MavenImportPreferences">
@@ -50,20 +59,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.App.executor": "Run",
-    "Application.CmdApp.executor": "Run",
-    "Application.HelloApplication.executor": "Run",
-    "Application.VApp_test.executor": "Run",
-    "Application.VisualApp.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/My Programs/Programming/Java/CPU_visual",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.App.executor&quot;: &quot;Run&quot;,
+    &quot;Application.CmdApp.executor&quot;: &quot;Run&quot;,
+    &quot;Application.HelloApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.VApp_test.executor&quot;: &quot;Run&quot;,
+    &quot;Application.VisualApp.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/My Programs/Programming/Java/CPU_visual&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\My Programs\Programming\Java\CPU_visual\src\main\resources\org\example\cpu_visual" />

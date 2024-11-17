@@ -17,6 +17,12 @@ public class Program implements Iterable<Command> {
 
 	ICPU cpu = BCPU.build();
 
+	HashMap<Integer, Integer> regs = new HashMap<>();
+
+	public void regsAdd(int ind, int val) {
+		regs.put(ind, val);
+	}
+
 	// =========================================
 	// Часть для наблюдателей
 	void eventCall() {
@@ -32,15 +38,13 @@ public class Program implements Iterable<Command> {
 	// =========================================
 	// Работа с текущей командой
 	Iterator<Command> iter;
-	private int currComExec = -1;
+	private Command currCom = null;
 
-	public int getCurrComInd() {
-		return currComExec;
-	}
+	public final Command getCurrCom() { return currCom; }
 
 	public void reset() {
 		newRegs = true;
-		currComExec = -1;
+		currCom = null;
 		cpu.reset();
 		eventCall();
 	}
@@ -63,13 +67,13 @@ public class Program implements Iterable<Command> {
 
 	public void runNext() throws Exception {
 		// начало исполнения команд
-		if (currComExec == -1) {
+		if (currCom == null) {
 			iter = this.iterator();
 		}
 		if (iter.hasNext()) {
-			currComExec++;
-
 			Command nextCom = iter.next();
+			currCom = nextCom;
+
 			System.out.println(nextCom);
 			cpu.run(nextCom);
 
@@ -83,13 +87,15 @@ public class Program implements Iterable<Command> {
 		eventCall();
 	}
 
-	public void comRemove(int ind) {
-		coms.remove(ind);
+	public void comRemove(Command com) {
+        coms.remove(com);
 		this.reset();
 		eventCall();
 	}
 
-	public void comMoveUp(int ind) {
+	public void comMoveUp(Command com) {
+		int ind = coms.indexOf(com);
+
 		if (ind == 0) return;
 
 		Command tmp = coms.get(ind - 1);
@@ -100,7 +106,9 @@ public class Program implements Iterable<Command> {
 		eventCall();
 	}
 
-	public void comMoveDown(int ind) {
+	public void comMoveDown(Command com) {
+		int ind = coms.indexOf(com);
+
 		if (ind == coms.size() - 1) return;
 
 		Command tmp = coms.get(ind + 1);

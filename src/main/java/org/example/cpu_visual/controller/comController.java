@@ -11,7 +11,6 @@ import org.example.cpu_visual.program.Task;
 public class comController {
 	Program prog = BProgram.build();
 	Command cmd;
-	int ind;
 	boolean isRunning = false;
 
 	@FXML
@@ -22,8 +21,8 @@ public class comController {
 	Label R_arg_label;
 
 
-	public comController(int ind) {
-		this.ind = ind;
+	public comController(Command cmd) {
+		this.cmd = cmd;
 	}
 
 	public void setStatus() {
@@ -55,14 +54,14 @@ public class comController {
 	}
 
 	public void moveUp() {
-		prog.comMoveUp(ind);
+		prog.comMoveUp(cmd);
 	}
 
 	public void moveDown() {
-		prog.comMoveDown(ind);
+		prog.comMoveDown(cmd);
 	}
 
 	public void remove() {
-		prog.comRemove(ind);
+		prog.comRemove(cmd);
 	}
 }

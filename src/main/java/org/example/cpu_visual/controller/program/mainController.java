@@ -31,24 +31,20 @@ public class mainController implements IObserver {
 	@FXML
 	private VBox rightVBox;
 
+	private void addWindow(VBox container, String name) throws IOException {
+		FXMLLoader fxmlLoader = new FXMLLoader(VisualApp.class.getResource(name));
+		Pane pane = fxmlLoader.load();
+		container.getChildren().add(pane);
+		prog.addObserver(fxmlLoader.getController());
+	}
+
 	private void initVBox() {
 		FXMLLoader fxmlLoader;
 		Pane pane;
 		try {
-			fxmlLoader = new FXMLLoader(VisualApp.class.getResource("windows/regs.fxml"));
-			pane = fxmlLoader.load();
-			rightVBox.getChildren().add(pane);
-			prog.addObserver(fxmlLoader.getController());
-
-			fxmlLoader = new FXMLLoader(VisualApp.class.getResource("windows/mems.fxml"));
-			pane = fxmlLoader.load();
-			rightVBox.getChildren().add(pane);
-			prog.addObserver(fxmlLoader.getController());
-
-			fxmlLoader = new FXMLLoader(VisualApp.class.getResource("windows/frequency.fxml"));
-			pane = fxmlLoader.load();
-			rightVBox.getChildren().add(pane);
-			prog.addObserver(fxmlLoader.getController());
+			addWindow(rightVBox, "windows/regs.fxml");
+			addWindow(rightVBox, "windows/mems.fxml");
+			addWindow(rightVBox, "windows/frequency.fxml");
 
 			fxmlLoader = new FXMLLoader(VisualApp.class.getResource("windows/main_controls.fxml"));
 			pane = fxmlLoader.load();
@@ -94,25 +90,22 @@ public class mainController implements IObserver {
 		if (allComs != null) {
 			allComs.getChildren().clear();
 
-			int ind = 0;
-			int currCom = prog.getCurrComInd();
+			Command currCom = prog.getCurrCom();
 			for (Command c: prog) {
-				comController cc = new comController(ind);
+				comController cc = new comController(c);
 
 				FXMLLoader fxmlLoader = new FXMLLoader(
 						VisualApp.class.getResource("command_view.fxml"));
 				fxmlLoader.setController(cc);
 				try {
 					Pane pane = fxmlLoader.load();
-					if (currCom == ind) {
-						cc.setStatus();
-					}
+					if (currCom == c) cc.setStatus();
+
 					cc.setCom(c);
 					allComs.addColumn(0, pane);
 				} catch (IOException e) {
 					throw new RuntimeException(e);
 				}
-				ind++;
 			}
 		}
 	}

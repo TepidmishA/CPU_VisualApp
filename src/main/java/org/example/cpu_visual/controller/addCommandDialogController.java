@@ -74,8 +74,22 @@ public class addCommandDialogController {
 		Command tmp;
 		if (Objects.equals(leftArgument, "")) {
 			tmp = new Command(selectedTask);
-		} else {
+			switch (selectedTask) {
+				// regs
+				case add: case sub: case mul: case div:
+					prog.regsAdd(3, -1);
+					break;
+			}
+		}
+		else {
 			tmp = new Command(selectedTask, leftArgument, rightArgument);
+
+			switch (selectedTask) {
+				// regs
+				case Task.ld: case Task.mv:
+					prog.regsAdd(Integer.parseInt(leftArgument), -1);
+					break;
+			}
 		}
 
 		prog.addCom(tmp);
