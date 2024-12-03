@@ -80,7 +80,7 @@ public class mainController implements IObserver {
 	private void initialize() {
 		prog.addObserver(this);
 
-		initProg();
+//		initProg();
 		initVBox();
 		event(prog);
 	}

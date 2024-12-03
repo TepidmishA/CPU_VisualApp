@@ -2,9 +2,29 @@ package org.example.cpu_visual.program;
 
 import org.example.cpu_visual.exception.number_of_values;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "Commands")  // какая таблица в DB
 public class Command {
+    @Id     // поле у первичного ключа
+    @GeneratedValue(strategy = GenerationType.AUTO)     // для автоматической генерации ключа
+    int ID = -1;
+
+    @Column
     private Task task;
-    private int val1, val2;
+    @Column
+    private int val1;
+    @Column
+    private int val2;
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
 
     private void StrToVals(String str1, String str2) {
         try {
@@ -32,6 +52,12 @@ public class Command {
 
     public int getVal2() {
         return val2;
+    }
+
+    public Command() {
+        this.task = Task.print;
+        this.val1 = -1;
+        this.val2 = -1;
     }
 
     public Command(String task) throws number_of_values {
@@ -76,4 +102,5 @@ public class Command {
                 ", val2=" + val2 +
                 '}';
     }
+
 }

@@ -1,5 +1,7 @@
 package org.example.cpu_visual.program;
 
+import org.example.cpu_visual.DAO.DAO;
+import org.example.cpu_visual.DAO.BDAO;
 import org.example.cpu_visual.controller.program.IObserver;
 import org.example.cpu_visual.cpu.BCPU;
 import org.example.cpu_visual.cpu.ICPU;
@@ -10,15 +12,14 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.*;
 
-// новая реализация без executer
-public class Program implements Iterable<Command> {
-	ArrayList<Command> coms = new ArrayList<>();
-	ArrayList<IObserver> allObserver = new ArrayList<>();
 
-	ICPU cpu = BCPU.build();
+public class Program implements Iterable<Command> {
+//	ArrayList<Command> coms = new ArrayList<>();
+	DAO dao = BDAO.getDAO();
+	ArrayList<IObserver> allObserver = new ArrayList<>();
+	Executer_visual exec = new Executer_visual();
 
 	HashMap<Integer, Integer> regs = new HashMap<>();
-
 	public void regsAdd(int ind, int val) {
 		regs.put(ind, val);
 	}
@@ -37,17 +38,7 @@ public class Program implements Iterable<Command> {
 
 	// =========================================
 	// Работа с текущей командой
-	Iterator<Command> iter;
-	private Command currCom = null;
-
-	public final Command getCurrCom() { return currCom; }
-
-	public void reset() {
-		newRegs = true;
-		currCom = null;
-		cpu.reset();
-		eventCall();
-	}
+	public final Command getCurrCom() { return exec.getCurrCom(); }
 
 	// =========================================
 	// Команды визуальной части
@@ -57,132 +48,57 @@ public class Program implements Iterable<Command> {
 		this.newRegs = newRegs;
 	}
 
-	public int[] getMemStatus() {
-		return cpu.getMem();
-	}
-
+	// =========================================
+	// работа с CPU
+	public int[] getMemStatus() { return exec.getMemStatus(); }
 	public int[] getRegsStatus() {
-		return cpu.getRegs();
+		return exec.getRegsStatus();
 	}
-
 	public void runNext() throws Exception {
-		// начало исполнения команд
-		if (currCom == null) {
-			iter = this.iterator();
-		}
-		if (iter.hasNext()) {
-			Command nextCom = iter.next();
-			currCom = nextCom;
-
-			System.out.println(nextCom);
-			cpu.run(nextCom);
-
-			eventCall();
-		}
+		exec.runNext();
+		eventCall();
 	}
 
 	public void addCom(Command com) {
-		coms.add(com);
+		dao.addCom(com);
 		this.reset();
 		eventCall();
 	}
 
 	public void comRemove(Command com) {
-        coms.remove(com);
+		dao.comRemove(com);
 		this.reset();
 		eventCall();
 	}
 
 	public void comMoveUp(Command com) {
-		int ind = coms.indexOf(com);
-
-		if (ind == 0) return;
-
-		Command tmp = coms.get(ind - 1);
-		coms.set(ind - 1, coms.get(ind));
-		coms.set(ind, tmp);
-
+		dao.comMoveUp(com);
 		this.reset();
 		eventCall();
 	}
 
 	public void comMoveDown(Command com) {
-		int ind = coms.indexOf(com);
-
-		if (ind == coms.size() - 1) return;
-
-		Command tmp = coms.get(ind + 1);
-		coms.set(ind + 1, coms.get(ind));
-		coms.set(ind, tmp);
-
+		dao.comMoveDown(com);
 		this.reset();
 		eventCall();
 	}
 
-	public Map<Task, Long> getSortedComs() {
-		return coms.stream()
-				.collect(Collectors.groupingBy(Command::getTask, Collectors.counting()))
-				.entrySet()
-				.stream()
-				.sorted((b, a)->a.getValue().compareTo(b.getValue()))
-				.collect(Collectors.toMap(
-						Map.Entry::getKey,
-						Map.Entry::getValue,
-						(e1, e2) -> e1,
-						LinkedHashMap::new
-				));
-	}
+	// =========================================
+	// Методы для сбора статистики по командам
+	public Map<Task, Long> getSortedComs() { return dao.getSortedComs(); }
+	public String mostPopularInstruction() { return dao.mostPopularInstruction(); }
+	public void showSortedComs() { dao.showSortedComs(); }
+	public void showMemoryRange() { dao.showMemoryRange(); }
 
 	// =========================================
-	// Отображение статистики в cmd
-
-	public String mostPopularInstruction() {
-		Map.Entry<Task, Long> mapComs = coms
-				.stream()
-				.collect(Collectors.groupingBy(Command::getTask, Collectors.counting()))
-				.entrySet()
-				.stream()
-				.max(Map.Entry.comparingByValue())
-				.orElse(null);
-
-		if (mapComs == null) {
-			return "No popular operation";
-		}
-		return "Most popular operation: " + mapComs.getKey() + " -> " + mapComs.getValue();
+	public void reset() {
+		newRegs = true;
+		exec.reset();
+		eventCall();
 	}
-
-	public void showSortedComs() {
-		System.out.println("Sorted ist of commands:");
-
-		coms.stream()
-				.collect(Collectors.groupingBy(Command::getTask, Collectors.counting()))
-				.entrySet()
-				.stream()
-				.sorted((b, a)->a.getValue().compareTo(b.getValue()))
-				.forEach(com -> System.out.println(com.getKey() + " -> " + com.getValue()));
-	}
-
-	public void showMemoryRange() {
-		int mi = Integer.MAX_VALUE, ma = Integer.MIN_VALUE;
-		for (Command com: coms) {
-			switch (com.getTask()) {
-				case init:
-					mi = Math.min(mi, com.getVal1());
-					ma = Math.max(ma, com.getVal1());
-					break;
-				case st:
-					mi = Math.min(mi, com.getVal2());
-					ma = Math.max(ma, com.getVal2());
-					break;
-			}
-		}
-		System.out.println("Memory range: " + mi + " --> " + ma);
-	}
-
-	// =========================================
 
 	@Override
 	public Iterator<Command> iterator() {
-		return coms.iterator();
+		return dao.iterator();
 	}
 }
